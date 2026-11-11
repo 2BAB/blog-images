@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" width="800" height="540">
+  <defs>
+    <style>
+      .bg { fill: #FFFFFF; }
+      .group-dashed { fill: #FFFFFF; stroke: #C3CFD9; stroke-width: 2; stroke-dasharray: 8 6; }
+      .node-fill { fill: #F2F5F7; stroke: #C3CFD9; stroke-width: 2; }
+      .node-white { fill: #FFFFFF; stroke: #C3CFD9; stroke-width: 2; }
+      .node-teal { fill: #FFFFFF; stroke: #1AAE9F; stroke-width: 2; }
+      .text-title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; fill: #293845; text-anchor: middle; dominant-baseline: central; }
+      .text-sub { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; fill: #788896; text-anchor: middle; dominant-baseline: central; }
+      .text-group { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; fill: #293845; dominant-baseline: central; }
+      .text-edge { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 500; fill: #788896; text-anchor: middle; dominant-baseline: central; }
+      .arrow { fill: none; stroke: #788896; stroke-width: 2.2; }
+      .arrow-dashed { fill: none; stroke: #788896; stroke-width: 2; stroke-dasharray: 5 5; }
+      .arrow-teal { fill: none; stroke: #1AAE9F; stroke-width: 2.5; }
+    </style>
+    <marker id="head-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#788896" />
+    </marker>
+    <marker id="head-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#1AAE9F" />
+    </marker>
+  </defs>
+
+  <!-- Pure White Background -->
+  <rect width="800" height="540" class="bg" />
+
+  <!-- Top Shared Version Catalog (no branching dashed lines) -->
+  <rect x="240" y="20" width="320" height="52" class="node-white" />
+  <text x="400" y="38" class="text-title">gradle/libs.versions.toml</text>
+  <text x="400" y="56" class="text-sub">Shared by all builds except samples</text>
+
+  <!-- Root Composite Build Boundary (Dashed, matching EAB 2.1.3) -->
+  <rect x="36" y="96" width="728" height="284" class="group-dashed" />
+  <text x="56" y="120" class="text-group">settings.gradle.kts (Composite Build)</text>
+
+  <!-- Row 1 inside Composite Build: target/build-logic -->
+  <rect x="296" y="148" width="208" height="56" class="node-fill" />
+  <text x="400" y="167" class="text-title">target/build-logic</text>
+  <text x="400" y="187" class="text-sub">Shared Gradle Plugins</text>
+
+  <!-- Row 2 inside Composite Build: samples + the 2 Kotlin foundation builds -->
+  <rect x="56" y="280" width="208" height="60" class="node-fill" />
+  <text x="160" y="301" class="text-title">samples</text>
+  <text x="160" y="321" class="text-sub">Desktop &amp; iOS App</text>
+
+  <rect x="296" y="280" width="208" height="60" class="node-fill" />
+  <text x="400" y="301" class="text-title">target/a2ui-kmp</text>
+  <text x="400" y="321" class="text-sub">Kotlin 2.3 · 5 Core Packages</text>
+
+  <rect x="536" y="280" width="208" height="60" class="node-fill" />
+  <text x="640" y="301" class="text-title">target/material3-a2ui-kmp</text>
+  <text x="640" y="321" class="text-sub">Kotlin 2.4 · material3-a2ui</text>
+
+  <!-- Row 3 Outside Composite Build: Published Repo & Standalone Integration Tests -->
+  <rect x="296" y="448" width="208" height="64" class="node-white" />
+  <text x="400" y="471" class="text-title">build/repo</text>
+  <text x="400" y="491" class="text-sub">Published Artifacts</text>
+
+  <rect x="536" y="448" width="208" height="64" class="node-teal" />
+  <text x="640" y="471" class="text-title">tests/integration</text>
+  <text x="640" y="491" class="text-sub">Standalone Build</text>
+
+  <!-- 1. target/build-logic provides plugins to target/a2ui-kmp and target/material3-a2ui-kmp -->
+  <path d="M 400 204 L 400 276" class="arrow" marker-end="url(#head-gray)" />
+  <path d="M 504 176 L 640 176 L 640 276" class="arrow" marker-end="url(#head-gray)" />
+  <rect x="538" y="166" width="84" height="20" fill="#FFFFFF" />
+  <text x="580" y="176" class="text-edge">build-logic</text>
+
+  <!-- 2. samples uses local source modules in IDE -->
+  <path d="M 160 280 L 160 238 L 350 238 L 350 276" class="arrow" marker-end="url(#head-gray)" />
+  <rect x="196" y="228" width="114" height="20" fill="#FFFFFF" />
+  <text x="253" y="238" class="text-edge">source deps (IDE)</text>
+
+  <!-- Publish from target/a2ui-kmp to build/repo -->
+  <path d="M 350 340 L 350 444" class="arrow" marker-end="url(#head-gray)" />
+  <rect x="318" y="398" width="64" height="20" fill="#FFFFFF" />
+  <text x="350" y="408" class="text-edge">publish</text>
+
+  <!-- samples -> target/material3-a2ui-kmp with explicit bridge gap over x=350 -->
+  <path d="M 160 340 L 160 364 L 342 364 M 358 364 L 560 364 L 560 344" class="arrow" marker-end="url(#head-gray)" />
+  <rect x="196" y="354" width="114" height="20" fill="#FFFFFF" />
+  <text x="253" y="364" class="text-edge">source deps (IDE)</text>
+
+  <!-- build/repo consumed by target/material3-a2ui-kmp (CLI dependency) -->
+  <path d="M 420 448 L 420 404 L 600 404 L 600 344" class="arrow-dashed" marker-end="url(#head-gray)" />
+  <rect x="454" y="394" width="106" height="20" fill="#FFFFFF" />
+  <text x="507" y="404" class="text-edge">CLI dependency</text>
+
+  <!-- target/material3-a2ui-kmp publishes to build/repo -->
+  <path d="M 670 340 L 670 430 L 470 430 L 470 444" class="arrow" marker-end="url(#head-gray)" />
+  <rect x="576" y="420" width="64" height="20" fill="#FFFFFF" />
+  <text x="608" y="430" class="text-edge">publish</text>
+
+  <!-- 4. build/repo -> tests/integration -->
+  <path d="M 504 480 L 532 480" class="arrow-teal" marker-end="url(#head-teal)" />
+</svg>
